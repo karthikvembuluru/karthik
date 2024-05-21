@@ -21,5 +21,3 @@ def logout(request):
 def base(request):
     return render(request,'base.html')
 
-def update_profile(request):
-    return render(request,'update_profile.html')
