@@ -5,8 +5,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>View Profile</title>
+    <title>Update Profile</title>
     <link rel="stylesheet" href="{% static 'css/view_profile.css' %}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
  
 </head>
 <body>
@@ -24,53 +25,84 @@
 
             <a href="profile.html">profile</a>
             <div class="dropdown-content">
-                <a href="{% url 'view_profile' %}">view profile</a>
-                <a href="{% url 'change_password' %}">Change Password</a>
-                <a href="{% url 'login' %}">Login</a>
-                <a href="{% url 'logout' %}">Logout</a>
+                <a href="view_profile.html">view profile</a>
+                <a href="change password.html">Change Password</a>
+                <a href="login.html">Login</a>
+                <a href="logout.html">Logout</a>
             </div>
         </li>
     </ul>
 </nav>    
        
 <div class="container">
- 
     <h2>Edit profile</h2>
     <div class="profile-container">
- 
         <div class="profile-details">
             <div class="profile-info">
                 <label>User Name:</label>
                 <span class="user-name">Karthik Vembuluru</span>
+                <!-- Check Font Awesome class and data-field attribute -->
+                <i class="fas fa-pen edit-icon" data-field="user-name"></i>
             </div>
             <div class="profile-info">
                 <label>First Name:</label>
                 <span class="first-name">karthik</span>
+                <i class="fas fa-pen edit-icon" data-field="first-name"></i>
             </div>
             <div class="profile-info">
                 <label>Last Name:</label>
                 <span class="last-name">vembuluru</span>
+                <i class="fas fa-pen edit-icon" data-field="last-name"></i>
             </div>
             <div class="profile-info">
                 <label>Email:</label>
                 <span class="email">karthik@gmail.com</span>
+                <i class="fas fa-pen edit-icon" data-field="email"></i>
             </div>
             <div class="profile-info">
                 <label>Gender:</label>
                 <span class="gender">male</span>
+                <i class="fas fa-pen edit-icon" data-field="gender"></i>
             </div>
             <div class="profile-info">
                 <label>Country:</label>
                 <span class="country">India</span>
+                <i class="fas fa-pen edit-icon" data-field="country"></i>
             </div>
             <div class="input-name">
                 <input type="submit" class="button" value="Update">                
             </div>
         </div>
-       
- 
     </div>
- 
 </div>
+<!-- Add Font Awesome script -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/js/all.min.js" integrity="sha512-CmrSp9lDBU4aK+sK4e+p3NKpJFdHGV/Dr+PlK/6FXr1J0fvZuDRfJDS1I6fbbvVXmNtHhmDMrA7Z8cIj+cw17A==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<!-- Add your JavaScript code here to handle editing -->
+<script>
+    // Add event listeners to edit icons
+    document.querySelectorAll('.edit-icon').forEach(function(editIcon) {
+        editIcon.addEventListener('click', function() {
+            // Replace the span element with an input field for editing
+            var field = this.dataset.field;
+            var spanElement = this.parentNode.querySelector('.' + field);
+            var currentValue = spanElement.textContent;
+            var inputElement = document.createElement('input');
+            inputElement.type = 'text';
+            inputElement.value = currentValue;
+            inputElement.classList.add('edit-input');
+            spanElement.parentNode.replaceChild(inputElement, spanElement);
+            inputElement.focus();
+            
+            // Add event listener to the input field to save changes
+            inputElement.addEventListener('blur', function() {
+                var newValue = this.value;
+                var newSpanElement = document.createElement('span');
+                newSpanElement.textContent = newValue;
+                newSpanElement.classList.add(field);
+                this.parentNode.replaceChild(newSpanElement, this);
+            });
+        });
+    });
+</script>
 </body>
 </html>
